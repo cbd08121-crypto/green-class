@@ -4,58 +4,385 @@
   <meta charset="UTF-8">
   <title>우리 반 초록불 타임어택</title>
   <style>
-    body { font-family: sans-serif; text-align: center; padding: 20px; }
-    .status-image { width: 220px; height: 220px; object-fit: contain; margin-bottom: 10px; }
-    .student-list { max-width: 600px; margin: 0 auto; text-align: left; }
-    .student-item { display: flex; justify-content: space-between; border-bottom: 1px solid #ddd; padding: 8px 0; }
-    .student-left { display: flex; flex-direction: column; }
-    .student-right { text-align: right; min-width: 180px; }
-    .student-name.green { color: #0a8a3a; font-weight: bold; }
-    .pledge { font-size: 0.8rem; opacity: 0.8; }
-    .timer { font-size: 0.8rem; opacity: 0.7; }
-    button { cursor: pointer; padding: 7px 12px; border-radius: 6px; }
-    select { padding: 6px 8px; }
-    .edit-btn { margin-top: 4px; padding: 4px 8px; font-size: 0.75rem; }
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Pretendard", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+      /* 처음엔 슬픈 배경으로 시작 */
+      background-image: url("bg_sad.png");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+      transition: background-image 0.6s ease-in-out;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 900px;
+      background: #ffffffdd;
+      backdrop-filter: blur(6px);
+      border-radius: 18px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+      padding: 20px 20px 24px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 12px 16px;
+      border-bottom: 2px solid #f2f2f2;
+      margin-bottom: 16px;
+    }
+
+    header .icon-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #ffe585, #ffb347);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+
+    header p {
+      margin: 2px 0 0;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .top-area {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .earth-card {
+      flex: 1 1 220px;
+      background: #fdfaf3;
+      border-radius: 16px;
+      padding: 12px 16px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: 1.5px solid #f3e1b9;
+    }
+
+    .earth-img-wrap {
+      flex-shrink: 0;
+    }
+
+    .status-image {
+      width: 110px;
+      height: 110px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .earth-text-block {
+      text-align: left;
+    }
+
+    #earthText {
+      margin: 0 0 6px;
+      font-size: 0.92rem;
+      line-height: 1.4;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 3px 8px;
+      font-size: 0.7rem;
+      border-radius: 999px;
+      background: #fff5cf;
+      color: #8a5a00;
+    }
+
+    .progress-card {
+      flex: 1 1 220px;
+      background: #f5fbff;
+      border-radius: 16px;
+      padding: 12px 16px 14px;
+      border: 1.5px solid #cfe8ff;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .progress-header span {
+      font-size: 0.8rem;
+      color: #555;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 14px;
+      border-radius: 999px;
+      background: #e6f2ff;
+      overflow: hidden;
+      margin-bottom: 4px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #39d98a, #20a86b);
+      transition: width 0.4s ease;
+    }
+
+    #progressText {
+      font-size: 0.8rem;
+      color: #555;
+    }
+
+    .controls-card {
+      margin-bottom: 18px;
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 10px 14px 12px;
+      border: 1px solid #e7edf3;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .controls-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    select {
+      padding: 6px 10px;
+      border-radius: 10px;
+      border: 1px solid #d2d8e0;
+      min-width: 180px;
+      font-size: 0.9rem;
+    }
+
+    #greenBtn {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(90deg, #3bd48b, #1ea96c);
+      color: white;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(47, 181, 115, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    #greenBtn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(47, 181, 115, 0.45);
+    }
+
+    #greenBtn:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 6px rgba(47, 181, 115, 0.3);
+    }
+
+    .hint-text {
+      font-size: 0.78rem;
+      color: #777;
+      margin: 4px 0 0;
+    }
+
+    h2 {
+      text-align: left;
+      font-size: 1rem;
+      margin: 0 0 8px;
+      padding-left: 2px;
+    }
+
+    .student-list {
+      max-width: 100%;
+      margin: 0 auto;
+      border-radius: 14px;
+      background: #ffffff;
+      border: 1px solid #e7edf3;
+      overflow: hidden;
+    }
+
+    .student-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 12px;
+      border-top: 1px solid #f1f3f7;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .student-item:nth-child(odd) {
+      background: #fcfeff;
+    }
+
+    .student-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .student-name {
+      font-size: 0.95rem;
+    }
+
+    .student-name.green {
+      color: #148c4b;
+      font-weight: 700;
+    }
+
+    .pledge {
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    .student-right {
+      text-align: right;
+      min-width: 170px;
+      font-size: 0.8rem;
+    }
+
+    .timer {
+      font-size: 0.78rem;
+      color: #777;
+    }
+
+    .edit-btn {
+      margin-top: 4px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid #d9e2ef;
+      background: #f7fbff;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+
+    .edit-btn:hover {
+      background: #e7f4ff;
+    }
+
+    .footer {
+      margin-top: 10px;
+      font-size: 0.75rem;
+      color: #777;
+      text-align: right;
+    }
+
+    @media (max-width: 640px) {
+      .student-right { min-width: 140px; }
+      .status-image { width: 90px; height: 90px; }
+      header h1 { font-size: 1.2rem; }
+    }
   </style>
 </head>
 <body>
+  <div class="app">
+    <header>
+      <div class="icon-circle">🌍</div>
+      <div>
+        <h1>반짝반 초록불</h1>
+        <p>지구와 땀나라 친구들을 지켜 주는 에너지 약속 페이지</p>
+      </div>
+    </header>
 
-  <h1>우리 반 초록불 타임어택</h1>
-  <img id="earthImage" class="status-image" src="earth_sad.png">
-  <p id="earthText">아직 힘든 지구와 땀나라 아이들… 초록 약속이 더 필요해요.</p>
+    <div class="top-area">
+      <!-- 지구 상태 카드 -->
+      <div class="earth-card">
+        <div class="earth-img-wrap">
+          <!-- 처음엔 슬픈 지구 아이콘 -->
+          <img id="earthImage" class="status-image" src="earth_sad.png" alt="지구 상태">
+        </div>
+        <div class="earth-text-block">
+          <p id="earthText">
+            아직 지구가 많이 더워요. 우리 반 초록불 약속이 더 필요해요.
+          </p>
+          <span class="tag">에너지 절약으로 땀나라 아이들을 쉬원하게 해줄까요?</span>
+        </div>
+      </div>
 
-  <div>
-    <select id="studentSelect">
-      <option value="">내 이름을 선택하세요</option>
-      <option value="1">1번 유주</option>
-      <option value="2">2번 지오</option>
-      <option value="3">3번 연서</option>
-      <option value="4">4번 하진</option>
-      <option value="5">5번 다인</option>
-      <option value="6">6번 서윤</option>
-      <option value="7">7번 지유</option>
-      <option value="8">8번 서우</option>
-      <option value="9">9번 하린</option>
-      <option value="10">10번 민서</option>
-      <option value="11">11번 기훈</option>
-      <option value="12">12번 대훈</option>
-      <option value="13">13번 승유</option>
-      <option value="14">14번 유준</option>
-      <option value="15">15번 관우</option>
-      <option value="16">16번 태양</option>
-      <option value="17">17번 재원</option>
-      <option value="18">18번 은규</option>
-      <option value="19">19번 선우</option>
-      <option value="20">20번 지후</option>
-    </select>
-    <button id="greenBtn">오늘 초록 행동 했어요!</button>
+      <!-- 초록불 진행 상황 카드 -->
+      <div class="progress-card">
+        <div class="progress-header">
+          <strong>우리 반 초록불 진행 상황 🌱</strong>
+          <span id="summaryText">0 / 0 명</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div id="progressText">초록불이 절반을 넘으면 지구가 웃어요!</div>
+      </div>
+    </div>
+
+    <!-- 이름 선택 + 버튼 -->
+    <div class="controls-card">
+      <div class="controls-left">
+        <span style="font-size:0.9rem;">👦👧 내 이름:</span>
+        <select id="studentSelect">
+          <option value="">이름을 선택하세요</option>
+          <option value="1">1번 유주</option>
+          <option value="2">2번 지오</option>
+          <option value="3">3번 연서</option>
+          <option value="4">4번 하진</option>
+          <option value="5">5번 다인</option>
+          <option value="6">6번 서윤</option>
+          <option value="7">7번 지유</option>
+          <option value="8">8번 서우</option>
+          <option value="9">9번 하린</option>
+          <option value="10">10번 민서</option>
+          <option value="11">11번 기훈</option>
+          <option value="12">12번 대훈</option>
+          <option value="13">13번 승유</option>
+          <option value="14">14번 유준</option>
+          <option value="15">15번 관우</option>
+          <option value="16">16번 태양</option>
+          <option value="17">17번 재원</option>
+          <option value="18">18번 은규</option>
+          <option value="19">19번 선우</option>
+          <option value="20">20번 지후</option>
+        </select>
+      </div>
+      <div>
+        <button id="greenBtn">🌱 오늘 초록 행동 했어요!</button>
+        <p class="hint-text">※ 선생님과 약속한 행동을 실천했을 때만 눌러요.</p>
+      </div>
+    </div>
+
+    <h2>우리 반 초록불 약속 목록</h2>
+    <div class="student-list" id="studentList"></div>
+
+    <div class="footer">
+      이름 옆 <strong>「다짐 수정」</strong>은 선생님이 수업 시간에 함께 정리해 주는 버튼이에요.
+    </div>
   </div>
 
-  <h2>우리 반 초록불 현황</h2>
-  <div class="student-list" id="studentList"></div>
-
+  <!-- Firebase + 로직 -->
   <script type="module">
-
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
     import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
 
@@ -86,15 +413,26 @@
 
     let dataCache = {};
 
+    const studentListDiv = document.getElementById("studentList");
+    const earthImage = document.getElementById("earthImage");
+    const earthText = document.getElementById("earthText");
+    const greenBtn = document.getElementById("greenBtn");
+    const selectEl = document.getElementById("studentSelect");
+    const progressFill = document.getElementById("progressFill");
+    const progressText = document.getElementById("progressText");
+    const summaryText = document.getElementById("summaryText");
+
     onValue(ref(db, "students"), snapshot => {
       dataCache = snapshot.val() || {};
       renderStudents();
     });
 
-    document.getElementById("greenBtn").addEventListener("click", () => {
-      const id = document.getElementById("studentSelect").value;
-      if (!id) { alert("이름을 선택하세요!"); return; }
-
+    greenBtn.addEventListener("click", () => {
+      const id = selectEl.value;
+      if (!id) {
+        alert("먼저 이름을 선택해 주세요!");
+        return;
+      }
       const now = Date.now();
       const info = dataCache[id] || {};
 
@@ -106,8 +444,7 @@
     });
 
     function renderStudents() {
-      const list = document.getElementById("studentList");
-      list.innerHTML = "";
+      studentListDiv.innerHTML = "";
       const now = Date.now();
       let greenCount = 0;
 
@@ -120,7 +457,6 @@
           remaining = ACTIVE_DURATION - (now - info.lastGreenTime);
           if (remaining > 0) isActive = true;
         }
-
         if (isActive) greenCount++;
 
         const row = document.createElement("div");
@@ -135,7 +471,7 @@
 
         const pledge = document.createElement("span");
         pledge.className = "pledge";
-        pledge.textContent = info.pledge ? `다짐: ${info.pledge}` : "다짐: 없음";
+        pledge.textContent = info.pledge ? `다짐: ${info.pledge}` : "다짐: 아직 정해지지 않았어요";
 
         left.appendChild(name);
         left.appendChild(pledge);
@@ -153,7 +489,7 @@
           const m = Math.floor((remaining % 3600000) / 60000);
           timer.textContent = `남은 시간: ${h}시간 ${m}분`;
         } else {
-          timer.textContent = "다시 실천하면 켜져요!";
+          timer.textContent = "다시 실천하면 초록불이 켜져요!";
         }
 
         const edit = document.createElement("button");
@@ -172,29 +508,42 @@
 
         row.appendChild(left);
         row.appendChild(right);
-        list.appendChild(row);
+        studentListDiv.appendChild(row);
       });
 
-      updateEarth(greenCount);
+      updateEarthAndProgress(greenCount);
     }
 
-    function updateEarth(greenCount) {
+    function updateEarthAndProgress(greenCount) {
       const total = Object.keys(STUDENTS).length;
       const half = Math.ceil(total / 2);
-      const earthImage = document.getElementById("earthImage");
-      const earthText = document.getElementById("earthText");
 
-      if (greenCount >= half) {
+      // 지구 표정 + 배경 동시에 변경
+      if (greenCount >= half && total > 0) {
         earthImage.src = "earth_happy.png";
-        earthText.textContent = "우리 반이 지구와 아이들을 지키고 있어요!";
+        earthText.textContent = "우리 반 초록불 덕분에 지구와 땀나라 아이들이 시원해졌어요!";
+        document.body.style.backgroundImage = 'url("bg_happy.png")';
       } else {
         earthImage.src = "earth_sad.png";
-        earthText.textContent = "아직 지구가 더워요… 더 많은 초록 약속이 필요해요!";
+        earthText.textContent = "아직 지구가 더워요. 초록 약속을 더 지켜 볼까요?";
+        document.body.style.backgroundImage = 'url("bg_sad.png")';
+      }
+
+      // 진행률 바 & 텍스트
+      summaryText.textContent = `${greenCount} / ${total} 명`;
+      const percent = total > 0 ? (greenCount / total) * 100 : 0;
+      progressFill.style.width = `${percent}%`;
+
+      if (percent >= 50) {
+        progressText.textContent = "절반이 넘었어요! 지구가 많이 웃고 있어요 😊";
+      } else if (percent > 0) {
+        progressText.textContent = "좋아요, 조금씩 더 초록불을 켜 볼까요?";
+      } else {
+        progressText.textContent = "아직 아무도 시작하지 않았어요. 땀나라 친구들이 더워해요.";
       }
     }
-
   </script>
-
 </body>
 </html>
+
 
