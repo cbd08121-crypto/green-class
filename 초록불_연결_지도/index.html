@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>초록불 연결 지도</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f9f0;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #2e7d32;
+        }
+        #inputArea {
+            margin: 20px 0;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 60%;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background-color: #d0f0c0;
+            margin: 5px auto;
+            padding: 10px;
+            width: 60%;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        #earthImage {
+            width: 150px;
+            transition: filter 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <h1>🌏 초록불 연결 지도</h1>
+    <div id="inputArea">
+        <input type="text" id="inputText" placeholder="나의 실천 약속을 입력하세요" />
+        <button onclick="addItem()">추가</button>
+    </div>
+    <ul id="list"></ul>
+    <img id="earthImage" src="earth_sad.png" alt="지구 이미지" />
+
+    <script>
+        const listElement = document.getElementById("list");
+        const inputElement = document.getElementById("inputText");
+        const earthImage = document.getElementById("earthImage");
+
+        let greenCount = 0;
+
+        function addItem() {
+            const text = inputElement.value.trim();
+            if (text !== "") {
+                const li = document.createElement("li");
+                li.textContent = "🟢 " + text;
+                listElement.appendChild(li);
+                inputElement.value = "";
+                greenCount++;
+
+                if (greenCount >= 5) {
+                    earthImage.src = "earth_happy.png";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
