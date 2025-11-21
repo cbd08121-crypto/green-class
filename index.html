@@ -2,21 +2,18 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>우리 반 초록불 타임어택</title>
+  <title>우리 반 초록불 페이지</title>
   <style>
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
       font-family: "Pretendard", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-
-      /* 처음엔 슬픈 배경으로 시작 */
       background-image: url("bg_sad.png");
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
       background-repeat: no-repeat;
-
       display: flex;
       justify-content: center;
       padding: 24px;
@@ -71,47 +68,28 @@
       margin-bottom: 18px;
     }
 
+    /* 🔥 지구 카드 – 그림만 중앙 */
     .earth-card {
-      flex: 1 1 220px;
+      flex: 1 1 260px;
       background: #fdfaf3;
       border-radius: 16px;
-      padding: 12px 16px 14px;
+      padding: 16px 18px 18px;
       display: flex;
       align-items: center;
-      gap: 12px;
+      justify-content: center;
       border: 1.5px solid #f3e1b9;
     }
 
-    .earth-img-wrap {
-      flex-shrink: 0;
-    }
-
+    /* 🔥 지구 4배 확대 */
     .status-image {
-      width: 110px;
-      height: 110px;
+      width: 640px;
+      max-width: 100%;
+      height: auto;
       object-fit: contain;
       display: block;
     }
 
-    .earth-text-block {
-      text-align: left;
-    }
-
-    #earthText {
-      margin: 0 0 6px;
-      font-size: 0.92rem;
-      line-height: 1.4;
-    }
-
-    .tag {
-      display: inline-block;
-      padding: 3px 8px;
-      font-size: 0.7rem;
-      border-radius: 999px;
-      background: #fff5cf;
-      color: #8a5a00;
-    }
-
+    /* 진행 상황 영역 */
     .progress-card {
       flex: 1 1 220px;
       background: #f5fbff;
@@ -127,11 +105,6 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 6px;
-    }
-
-    .progress-header span {
-      font-size: 0.8rem;
-      color: #555;
     }
 
     .progress-bar {
@@ -151,10 +124,14 @@
     }
 
     #progressText {
-      font-size: 0.8rem;
-      color: #555;
+      font-size: 1rem;
+      color: #222;
+      font-weight: 700;
+      line-height: 1.5;
+      word-break: keep-all;
     }
 
+    /* 이름 선택 카드 */
     .controls-card {
       margin-bottom: 18px;
       background: #ffffff;
@@ -166,12 +143,6 @@
       align-items: center;
       gap: 10px;
       flex-wrap: wrap;
-    }
-
-    .controls-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
     select {
@@ -192,117 +163,84 @@
       font-size: 0.9rem;
       cursor: pointer;
       box-shadow: 0 4px 10px rgba(47, 181, 115, 0.4);
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    #greenBtn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 14px rgba(47, 181, 115, 0.45);
-    }
-
-    #greenBtn:active {
-      transform: translateY(0);
-      box-shadow: 0 2px 6px rgba(47, 181, 115, 0.3);
-    }
-
-    .hint-text {
-      font-size: 0.78rem;
-      color: #777;
-      margin: 4px 0 0;
     }
 
     h2 {
       text-align: left;
       font-size: 1rem;
       margin: 0 0 8px;
-      padding-left: 2px;
     }
 
     .student-list {
       max-width: 100%;
-      margin: 0 auto;
       border-radius: 14px;
       background: #ffffff;
       border: 1px solid #e7edf3;
       overflow: hidden;
     }
 
+    /* 🔥 이름 + 다짐 1.5배 확대 */
     .student-item {
       display: flex;
       justify-content: space-between;
-      padding: 8px 12px;
+      padding: 18px 18px;
       border-top: 1px solid #f1f3f7;
       align-items: center;
-      gap: 10px;
-    }
-
-    .student-item:nth-child(odd) {
-      background: #fcfeff;
+      gap: 20px;
     }
 
     .student-left {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      align-items: flex-start;
+      gap: 10px;
     }
 
     .student-name {
-      font-size: 0.95rem;
+      font-size: 2.4rem; /* 원래 1.6rem → 1.5배 */
+      font-weight: 800;
+      color: #1c5f39;
     }
 
     .student-name.green {
-      color: #148c4b;
-      font-weight: 700;
+      color: #168c4e;
     }
 
     .pledge {
-      font-size: 0.8rem;
-      color: #666;
+      font-size: 3rem;  /* 원래 2rem → 1.5배 */
+      font-weight: 900;
+      color: #111;
+      max-width: 100%;
+      line-height: 1.4;
+      word-break: keep-all;
     }
 
     .student-right {
       text-align: right;
-      min-width: 170px;
-      font-size: 0.8rem;
+      min-width: 200px;
+      font-size: 1rem;
     }
 
     .timer {
-      font-size: 0.78rem;
-      color: #777;
+      font-size: 0.85rem;
+      color: #555;
     }
 
     .edit-btn {
-      margin-top: 4px;
-      padding: 3px 8px;
+      margin-top: 6px;
+      padding: 4px 10px;
       border-radius: 999px;
       border: 1px solid #d9e2ef;
       background: #f7fbff;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       cursor: pointer;
     }
 
-    .edit-btn:hover {
-      background: #e7f4ff;
-    }
-
-    .footer {
-      margin-top: 10px;
-      font-size: 0.75rem;
-      color: #777;
-      text-align: right;
-    }
-
-    @media (max-width: 640px) {
-      .student-right { min-width: 140px; }
-      .status-image { width: 90px; height: 90px; }
-      header h1 { font-size: 1.2rem; }
-    }
   </style>
 </head>
 <body>
   <div class="app">
+
     <header>
       <div class="icon-circle">🌍</div>
       <div>
@@ -312,37 +250,27 @@
     </header>
 
     <div class="top-area">
-      <!-- 지구 상태 카드 -->
+      <!-- 왼쪽: 지구 그림만 -->
       <div class="earth-card">
-        <div class="earth-img-wrap">
-          <!-- 처음엔 슬픈 지구 아이콘 -->
-          <img id="earthImage" class="status-image" src="earth_sad.png" alt="지구 상태">
-        </div>
-        <div class="earth-text-block">
-          <p id="earthText">
-            아직 지구가 많이 더워요. 우리 반 초록불 약속이 더 필요해요.
-          </p>
-          <span class="tag">에너지 절약으로 땀나라 아이들을 쉬원하게 해줄까요?</span>
-        </div>
+        <img id="earthImage" class="status-image" src="earth_sad.png">
       </div>
 
-      <!-- 초록불 진행 상황 카드 -->
+      <!-- 오른쪽: 진행 상황 -->
       <div class="progress-card">
         <div class="progress-header">
-          <strong>우리 반 초록불 진행 상황 🌱</strong>
+          <strong>우리 반 초록불 상황 🌱</strong>
           <span id="summaryText">0 / 0 명</span>
         </div>
         <div class="progress-bar">
           <div class="progress-fill" id="progressFill"></div>
         </div>
-        <div id="progressText">초록불이 절반을 넘으면 지구가 웃어요!</div>
+        <div id="progressText"></div>
       </div>
     </div>
 
-    <!-- 이름 선택 + 버튼 -->
     <div class="controls-card">
-      <div class="controls-left">
-        <span style="font-size:0.9rem;">👦👧 내 이름:</span>
+      <div>
+        <span>👦👧 내 이름:</span>
         <select id="studentSelect">
           <option value="">이름을 선택하세요</option>
           <option value="1">1번 유주</option>
@@ -367,21 +295,16 @@
           <option value="20">20번 지후</option>
         </select>
       </div>
-      <div>
-        <button id="greenBtn">🌱 오늘 초록 행동 했어요!</button>
-        <p class="hint-text">※ 선생님과 약속한 행동을 실천했을 때만 눌러요.</p>
-      </div>
+
+      <button id="greenBtn">🌱 오늘 초록 행동 했어요!</button>
     </div>
 
     <h2>우리 반 초록불 약속 목록</h2>
-    <div class="student-list" id="studentList"></div>
+    <div id="studentList" class="student-list"></div>
 
-    <div class="footer">
-      이름 옆 <strong>「다짐 수정」</strong>은 선생님이 수업 시간에 함께 정리해 주는 버튼이에요.
-    </div>
   </div>
 
-  <!-- Firebase + 로직 -->
+  <!-- JS -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
     import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
@@ -399,7 +322,7 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    const ACTIVE_DURATION = 48 * 60 * 60 * 1000;
+    const ACTIVE_DURATION = 24 * 60 * 60 * 1000;
 
     const STUDENTS = {
       "1": "1번 유주", "2": "2번 지오", "3": "3번 연서",
@@ -415,7 +338,6 @@
 
     const studentListDiv = document.getElementById("studentList");
     const earthImage = document.getElementById("earthImage");
-    const earthText = document.getElementById("earthText");
     const greenBtn = document.getElementById("greenBtn");
     const selectEl = document.getElementById("studentSelect");
     const progressFill = document.getElementById("progressFill");
@@ -457,6 +379,7 @@
           remaining = ACTIVE_DURATION - (now - info.lastGreenTime);
           if (remaining > 0) isActive = true;
         }
+
         if (isActive) greenCount++;
 
         const row = document.createElement("div");
@@ -467,11 +390,12 @@
 
         const name = document.createElement("span");
         name.textContent = STUDENTS[id];
-        name.className = isActive ? "student-name green" : "student-name";
+        name.className = "student-name" + (isActive ? " green" : "");
 
         const pledge = document.createElement("span");
         pledge.className = "pledge";
-        pledge.textContent = info.pledge ? `다짐: ${info.pledge}` : "다짐: 아직 정해지지 않았어요";
+        pledge.textContent =
+          info.pledge ? `다짐: ${info.pledge}` : "다짐: 아직 정해지지 않았어요";
 
         left.appendChild(name);
         left.appendChild(pledge);
@@ -487,9 +411,9 @@
         if (isActive) {
           const h = Math.floor(remaining / 3600000);
           const m = Math.floor((remaining % 3600000) / 60000);
-          timer.textContent = `남은 시간: ${h}시간 ${m}분`;
+          timer.textContent = `남음: ${h}시간 ${m}분`;
         } else {
-          timer.textContent = "다시 실천하면 초록불이 켜져요!";
+          timer.textContent = "다시 실천하면 켜져요!";
         }
 
         const edit = document.createElement("button");
@@ -518,32 +442,25 @@
       const total = Object.keys(STUDENTS).length;
       const half = Math.ceil(total / 2);
 
-      // 지구 표정 + 배경 동시에 변경
-      if (greenCount >= half && total > 0) {
+      if (greenCount >= half) {
         earthImage.src = "earth_happy.png";
-        earthText.textContent = "우리 반 초록불 덕분에 지구와 땀나라 아이들이 시원해졌어요!";
+        progressText.textContent = "우리 반 초록불 덕분에 땀나라가 시원해졌어요!";
         document.body.style.backgroundImage = 'url("bg_happy.png")';
       } else {
         earthImage.src = "earth_sad.png";
-        earthText.textContent = "아직 지구가 더워요. 초록 약속을 더 지켜 볼까요?";
+        progressText.textContent = "아직 아무도 시작하지 않았어요.";
         document.body.style.backgroundImage = 'url("bg_sad.png")';
       }
 
-      // 진행률 바 & 텍스트
       summaryText.textContent = `${greenCount} / ${total} 명`;
       const percent = total > 0 ? (greenCount / total) * 100 : 0;
       progressFill.style.width = `${percent}%`;
 
-      if (percent >= 50) {
-        progressText.textContent = "절반이 넘었어요! 지구가 많이 웃고 있어요 😊";
-      } else if (percent > 0) {
+      if (percent > 0 && percent < 50) {
         progressText.textContent = "좋아요, 조금씩 더 초록불을 켜 볼까요?";
-      } else {
-        progressText.textContent = "아직 아무도 시작하지 않았어요. 땀나라 친구들이 더워해요.";
       }
     }
   </script>
+
 </body>
 </html>
-
-
